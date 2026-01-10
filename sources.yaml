@@ -1,6 +1,6 @@
 EvolutionX-Android-16:
   kernel:
-    - git clone https://github.com/Evolution-X-Devices/kernel_samsung_a71.git -b sixteen
+    - git clone https://github.com/Evolution-X-Devices/kernel_samsung_a71.git -b 16.0
   clang:
     - git clone --depth=1 https://gitlab.com/Jprimero15/lolz_clang.git -b main
   config:
