@@ -22,12 +22,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install build dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip jq libarchive-tools zip lib32z-dev libghc-bzlib-dev pngcrush ^liblzma.* python-is-python3 libsdl1.2-dev autoconf libxml2-utils wget pkg-config unzip w3m gawk imagemagick libc6-dev gcc-multilib patchelf gzip clang subversion optipng device-tree-compiler ccache gcc ^liblz4-.* lzip rsync automake fastboot python2.7 patch zip pngquant expat lzop libswitch-perl make libcap-dev python2 adb libxml2 bison libxml-simple-perl zlib1g-dev libarchive-tools libtool squashfs-tools gperf ^lzma.* libfl-dev ncurses-dev pwgen flex libtinfo5 minicom liblz4-tool libmpfr-dev libssl-dev lib32ncurses5-dev libbz2-dev lib32z1-dev libgmp-dev git libncurses5-dev dpkg-dev libmpc-dev lftp python2-dev python3 rar git-lfs policycoreutils unrar libncurses5 libbz2-1.0 ncftp tree python-all-dev bzip2 bc ftp software-properties-common tar libgl1-mesa-dev texinfo schedtool curl libexpat1-dev llvm libc6-dev-i386 apt-utils cmake g++-multilib build-essential re2c axel maven xsltproc g++ libx11-dev libxml-sax-base-perl gnupg bash
+          sudo apt install -y python3-pip jq libarchive-tools zip lib32z1-dev libbz2-dev \
+            pngcrush python-is-python3 libsdl1.2-dev autoconf libxml2-utils wget pkg-config \
+            unzip w3m gawk imagemagick libc6-dev gcc-multilib patchelf clang subversion \
+            optipng device-tree-compiler ccache lzip rsync automake fastboot patch zip pngquant \
+            lzop make libcap-dev adb bison libncurses5-dev zlib1g-dev libtool squashfs-tools \
+            gperf libfl-dev ncurses-dev flex minicom liblz4-tool libmpfr-dev libssl-dev \
+            git libncurses-dev dpkg-dev libmpc-dev lftp python3 rar git-lfs bash curl
           sudo pip3 install yq
 
       - name: Set up ccache
@@ -49,8 +55,7 @@ jobs:
           ./clone.sh
 
       - name: Add Clang to PATH
-        run: |
-          echo "${CLANG_PATH}" >> $GITHUB_PATH
+        run: echo "${CLANG_PATH}" >> $GITHUB_PATH
         
       - name: Compile kernel
         run: |
@@ -59,9 +64,7 @@ jobs:
 
       - name: Make output directory for kernel
         run: |
-          mkdir outw
-          mkdir outw/false
-          mkdir outw/true
+          mkdir -p outw/false outw/true
 
       - name: Move kernel without KernelSU support to output directory
         run: |
